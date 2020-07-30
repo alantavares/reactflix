@@ -5,9 +5,9 @@ import FormField from '../../../components/FormField';
 
 function CadastroCategoria() {
   const valoresIniciais = {
-    nome: String,
-    cor: String,
-    descricao: String,
+    nome: '',
+    cor: '',
+    descricao: '',
   };
 
   const [categorias, setCategorias] = useState([]);
