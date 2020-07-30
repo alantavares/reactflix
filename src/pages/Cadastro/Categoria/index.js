@@ -1,83 +1,93 @@
 import React, { useState } from 'react';
-import PageDefault from '../../../components/PageDefault';
 import { Link } from 'react-router-dom';
+import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 
-function CadastroCategoria(){    
+function CadastroCategoria() {
+  const valoresIniciais = {
+    nome: String,
+    cor: String,
+    descricao: String,
+  };
 
-    const valoresIniciais = {
-        nome:'',
-        cor:'',
-        descricao:''
-    }
-    const [categorias, setCategorias] = useState([]);
-    const [values, setValues] = useState(valoresIniciais);
+  const [categorias, setCategorias] = useState([]);
 
-    function setValue(name, value){
-        setValues({
-            ...values,
-            [name] : value
-        })
-    };
+  const [values, setValues] = useState(valoresIniciais);
 
-    function handleChange(e){
-        setValue(e.target.getAttribute('name'), e.target.value);
-    }
-    return (
-        <PageDefault>
-            <h1>Cadastro de Categoria: {values.nome}</h1>
+  function setValue(name, value) {
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  }
 
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                setCategorias([
-                    ...categorias,
-                    values
-                ]);
-                setValues( valoresIniciais );
-            }}>
+  function handleChange(e) {
+    setValue(e.target.getAttribute('name'), e.target.value);
+  }
+  return (
+    <PageDefault>
+      <h1>
+        Cadastro de Categoria:
+        {values.nome}
+      </h1>
 
-                <FormField
-                    label='Nome da Categoria:'
-                    type='text'
-                    name='nome'
-                    value={values.nome}
-                    onChange={handleChange}
-                />
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        setCategorias([
+          ...categorias,
+          values,
+        ]);
+        setValues(valoresIniciais);
+      }}
+      >
 
-                <FormField
-                    label='Descrição:'
-                    type='textarea'
-                    name='descricao'
-                    value={values.descricao}
-                    onChange={handleChange}
-                />
+        <FormField
+          label="Nome da Categoria:"
+          type="text"
+          name="nome"
+          value={values.nome}
+          onChange={handleChange}
+        />
 
-                <FormField
-                    label='Cor:'
-                    type='color'
-                    name='cor'
-                    value={values.cor}
-                    onChange={handleChange}
-                />
+        <FormField
+          label="Descrição:"
+          type="textarea"
+          name="descricao"
+          value={values.descricao}
+          onChange={handleChange}
+        />
 
-                <button>
-                Cadastrar
-                </button>
-            </form>
+        <FormField
+          label="Cor:"
+          type="color"
+          name="cor"
+          value={values.cor}
+          onChange={handleChange}
+        />
 
-            <ul>
-                {categorias.map( (categoria, key) => {
-                    return (
-                        <li key={categoria+key}>{categoria.nome}</li>
-                    )
-                })}
-            </ul>
+        <button type="submit">
+          Cadastrar
+        </button>
+      </form>
 
-            <Link to='/'>
-                Ir para home
-            </Link>
-        </PageDefault>
-    );
+      <ul>
+        {categorias.map(
+          (categoria, key) => {
+            const id = `id_${categoria}_${key}`;
+            return (
+              <li key={id}>
+                {categoria.nome}
+              </li>
+            );
+          },
+        )}
+      </ul>
+
+      <Link to="/">
+        Ir para home
+      </Link>
+    </PageDefault>
+  );
 }
 
 export default CadastroCategoria;
