@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import useForm from '../../../hooks/useForm';
+import categoriasRepository from '../../../repositories/categorias';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -14,15 +15,9 @@ function CadastroCategoria() {
   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    const URL = window.location.hostname.includes('localhost')
-      ? 'http://localhost:8080/categorias'
-      : 'https://alanflix.herokuapp.com/categorias';
-
-    fetch(URL)
-      .then(async (response) => {
-        setCategorias([
-          ...await response.json(),
-        ]);
+    categoriasRepository.getAllWithVideos()
+      .then((categories) => {
+        setCategorias(categories);
       });
   }, []);
 
