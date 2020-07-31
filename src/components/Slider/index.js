@@ -56,7 +56,7 @@ const Slider = ({ children }) => (
 );
 
 Slider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default Slider;

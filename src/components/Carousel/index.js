@@ -12,6 +12,7 @@ function Carousel({
   const categoryColor = category.cor;
   const categoryExtraLink = category.link_extra;
   const { videos } = category;
+
   return (
     <VideoCardGroupContainer>
       {categoryTitle && (
@@ -57,11 +58,13 @@ Carousel.propTypes = {
   category: PropTypes.shape({
     titulo: PropTypes.string,
     cor: PropTypes.string,
-    link_extra: PropTypes.string,
-    videos: PropTypes.arrayOf({
+    link_extra: PropTypes.objectOf(PropTypes.string),
+    videos: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      categoriaId: PropTypes.number.isRequired,
       titulo: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
-    }).isRequired,
+    })).isRequired,
   }).isRequired,
 };
 
